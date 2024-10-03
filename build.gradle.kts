@@ -4,6 +4,8 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     kotlin("jvm") version "2.0.20"
+    kotlin("kapt") version "2.0.20"
+    kotlin("plugin.jpa") version "2.0.20"
     kotlin("plugin.spring") version "2.0.20"
 
     id("org.springframework.boot") version "3.3.4"
@@ -17,9 +19,13 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "io.spring.dependency-management")
-    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "kotlin")
+    apply(plugin = "kotlin-kapt")
     apply(plugin = "kotlin-spring")
+    apply(plugin = "org.springframework.boot")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
+    apply(plugin = "io.spring.dependency-management")
 
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -44,19 +50,4 @@ subprojects {
     tasks.withType<BootJar> {
         enabled = false
     }
-}
-
-project(":xd-api") {
-    apply(plugin = "org.springframework.boot")
-
-    tasks.withType<BootJar> {
-        enabled = true
-    }
-}
-
-dependencies {
-//    implementation("org.springframework.boot:spring-boot-starter-web")
-//    testImplementation("org.springframework.boot:spring-boot-starter-test")
-//    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-//    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
