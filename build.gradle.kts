@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
@@ -16,13 +17,13 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "kotlin-spring")
-    apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "io.spring.dependency-management")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "kotlin-spring")
 
     dependencies {
-        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.0")
     }
 
     tasks.withType<JavaCompile> {
@@ -31,9 +32,8 @@ subprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs += "-Xjsr305=strict"
-            jvmTarget = "21"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
         }
     }
 
@@ -55,7 +55,7 @@ project(":xd-api") {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
+//    implementation("org.springframework.boot:spring-boot-starter-web")
 //    testImplementation("org.springframework.boot:spring-boot-starter-test")
 //    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 //    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
