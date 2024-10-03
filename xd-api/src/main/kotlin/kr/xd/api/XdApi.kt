@@ -1,11 +1,11 @@
-package kr.xd
+package kr.xd.api
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class XdApplication
+class XdApi
 
 fun main(args: Array<String>) {
-    runApplication<XdApplication>(*args)
+    runApplication<XdApi>(*args)
 }
