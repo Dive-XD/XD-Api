@@ -13,7 +13,7 @@ plugins {
 }
 
 allprojects {
-    group = "kr"
+    group = "kr.xd"
     version = "1.0.0"
     repositories { mavenCentral() }
 }
