@@ -5,9 +5,11 @@ import io.jsonwebtoken.security.Keys
 import kr.xd.claims.JwtClaims
 import kr.xd.constants.JwtClaimConstants
 import kr.xd.constants.JwtProperties
+import org.springframework.stereotype.Component
 import java.util.*
 import javax.crypto.SecretKey
 
+@Component
 class JwtProvider(
     private val jwtProperties: JwtProperties
 ) {
