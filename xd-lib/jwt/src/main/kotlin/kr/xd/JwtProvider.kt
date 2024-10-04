@@ -3,7 +3,7 @@ package kr.xd
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import kr.xd.claims.JwtClaims
-import kr.xd.constants.JwtClaimConstants
+import kr.xd.constants.JwtClaimConstants.USER_CLAIM
 import kr.xd.constants.JwtProperties
 import org.springframework.stereotype.Component
 import java.util.*
@@ -21,7 +21,7 @@ class JwtProvider(
 
         return Jwts.builder()
             .issuedAt(now)
-            .claim(JwtClaimConstants.USER_CLAIM, jwtClaims.convertToClaims())
+            .claim(USER_CLAIM.value, jwtClaims.convertToClaims())
             .signWith(secretKey)
             .expiration(expiration)
             .compact()

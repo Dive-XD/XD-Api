@@ -1,4 +1,4 @@
-package kr.xd.global.entity
+package kr.xd.common.error
 
 enum class GlobalError(
     override val message: String,

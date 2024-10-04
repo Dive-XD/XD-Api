@@ -2,9 +2,9 @@ package kr.xd.global.security.handler
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.http.HttpServletResponse
-import kr.xd.global.entity.ErrorEntity
-import kr.xd.global.entity.ErrorResponse
-import kr.xd.global.security.error.AuthError
+import kr.xd.common.error.ErrorEntity
+import kr.xd.common.error.ErrorResponse
+import kr.xd.error.AuthenticationError
 import kr.xd.global.util.LoggerUtil
 import org.springframework.http.MediaType
 import org.springframework.security.web.AuthenticationEntryPoint
@@ -20,20 +20,19 @@ class AuthenticationExceptionHandler(
 
     fun unauthorizedHandler(): AuthenticationEntryPoint {
         return AuthenticationEntryPoint { _, response, exception ->
-            val errorEntity = AuthError.ERR_UNAUTHORIZED
-            val traceMessage = exception.message
+            val errorEntity = AuthenticationError.ERR_UNAUTHORIZED
 
-            loggerUtil.logErrorResponse(exception, errorEntity, traceMessage)
+            loggerUtil.logErrorResponse(exception, errorEntity)
             writeErrorResponse(response, errorEntity)
         }
     }
 
     fun forbiddenHandler(): AccessDeniedHandler {
         return AccessDeniedHandler { _, response, exception ->
-            val errorEntity = AuthError.ERR_FORBIDDEN
+            val errorEntity = AuthenticationError.ERR_FORBIDDEN
             val traceMessage = exception.message
 
-            loggerUtil.logErrorResponse(exception, errorEntity, traceMessage)
+            loggerUtil.logErrorResponse(exception, errorEntity)
             writeErrorResponse(response, errorEntity)
         }
     }

@@ -1,8 +1,8 @@
-package kr.xd.global.security.error
+package kr.xd.error
 
-import kr.xd.global.entity.ErrorEntity
+import kr.xd.common.error.ErrorEntity
 
-enum class AuthError(
+enum class AuthenticationError(
     override val message: String,
     override val httpStatus: Int,
     override val code: String,

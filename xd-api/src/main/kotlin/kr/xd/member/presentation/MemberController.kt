@@ -10,6 +10,6 @@ class MemberController {
 
     @PostMapping(API_V1 + MEMBER)
     fun createMember() {
-        
+
     }
 }

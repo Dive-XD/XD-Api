@@ -1,7 +1,7 @@
 package kr.xd.global.handler
 
+import kr.xd.common.error.GlobalError
 import kr.xd.global.dto.ApiErrorResponse
-import kr.xd.global.entity.GlobalError
 import kr.xd.global.util.LoggerUtil
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -20,8 +20,7 @@ class ValidationExceptionHandler(
         exception: MethodArgumentNotValidException
     ): ResponseEntity<ApiErrorResponse> {
         val errorEntity = GlobalError.INVALID_PARAMETER
-        val traceMessage = exception.message
-        return handleValidationException(exception, errorEntity, traceMessage)
+        return handleValidationException(exception, errorEntity)
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException::class)
@@ -30,7 +29,7 @@ class ValidationExceptionHandler(
     ): ResponseEntity<ApiErrorResponse> {
         val errorEntity = GlobalError.INVALID_PARAMETER
         val traceMessage = exception.message
-        return handleValidationException(exception, errorEntity, traceMessage)
+        return handleValidationException(exception, errorEntity)
     }
 
     @ExceptionHandler(MissingServletRequestParameterException::class)
@@ -38,16 +37,14 @@ class ValidationExceptionHandler(
         exception: MissingServletRequestParameterException
     ): ResponseEntity<ApiErrorResponse> {
         val errorEntity = GlobalError.INVALID_PARAMETER
-        val traceMessage = exception.message
-        return handleValidationException(exception, errorEntity, traceMessage)
+        return handleValidationException(exception, errorEntity)
     }
 
     private fun handleValidationException(
         exception: Exception,
-        errorEntity: GlobalError,
-        traceMessage: String?
+        errorEntity: GlobalError
     ): ResponseEntity<ApiErrorResponse> {
-        loggerUtil.logErrorResponse(exception, errorEntity, traceMessage)
+        loggerUtil.logErrorResponse(exception, errorEntity)
 
         val errorResponse = ApiErrorResponse(errorEntity)
         return ResponseEntity

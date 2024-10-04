@@ -1,6 +1,6 @@
 package kr.xd.global.dto
 
-import kr.xd.global.entity.ErrorEntity
+import kr.xd.common.error.ErrorEntity
 import java.time.LocalDateTime
 
 data class ApiErrorResponse(

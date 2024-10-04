@@ -1,6 +1,9 @@
 package kr.xd.global.util
 
-import kr.xd.global.entity.ErrorEntity
+import jakarta.servlet.http.HttpServletRequest
+import kr.xd.common.error.ErrorEntity
+import kr.xd.global.util.LoggerConstants.REQUEST
+import kr.xd.global.util.LoggerConstants.STACKTRACE
 import org.slf4j.Logger
 import org.springframework.stereotype.Component
 
@@ -8,20 +11,24 @@ import org.springframework.stereotype.Component
 class LoggerUtil(
     private val log: Logger
 ) {
-    fun logErrorResponse(
-        exception: Exception,
-        error: ErrorEntity,
-        traceMessage: String? = null
+    fun logClientRequest(
+        request: HttpServletRequest
     ) {
-        when (traceMessage) {
-            null -> log.error(TRACE, error.code, error.httpStatus, error.message)
-            else -> log.error(TRACE_WITH_MSG, error.code, error.httpStatus, error.message, traceMessage)
-        }
+        log.info(REQUEST, request.method, request.requestURI, request.remoteAddr)
     }
 
-    private companion object {
-        const val REQUEST = "REQ | {}: {} ({}) - {}"
-        const val TRACE = "ERR | {} ({}) - {}"
-        const val TRACE_WITH_MSG = "$TRACE | {}"
+    fun logErrorResponse(
+        exception: Exception,
+        error: ErrorEntity
+    ) {
+        log.error(LoggerConstants.TRACE, error.code, error.httpStatus, error.message)
+        log.error(STACKTRACE, exception.message)
     }
+}
+
+private object LoggerConstants {
+    const val REQUEST = "REQ | {}: {} ({})"
+    const val TRACE = "ERR | {} ({}) - {}"
+    const val TRACE_WITH_MSG = "$TRACE | {}"
+    const val STACKTRACE = "--> ERR TRACE | {}"
 }

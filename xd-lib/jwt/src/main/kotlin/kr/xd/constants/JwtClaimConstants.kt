@@ -1,5 +1,7 @@
 package kr.xd.constants
 
-object JwtClaimConstants {
-    const val USER_CLAIM = "user_claim"
+enum class JwtClaimConstants(
+    val value: String
+) {
+    USER_CLAIM("user_claim")
 }

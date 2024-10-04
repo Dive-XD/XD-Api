@@ -1,8 +1,8 @@
 package kr.xd.global.handler
 
+import kr.xd.common.error.GlobalError
+import kr.xd.common.exception.BusinessException
 import kr.xd.global.dto.ApiErrorResponse
-import kr.xd.global.entity.GlobalError
-import kr.xd.global.exception.BusinessException
 import kr.xd.global.util.LoggerUtil
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
