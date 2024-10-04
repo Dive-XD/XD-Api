@@ -1,0 +1,57 @@
+package kr.xd.global.handler
+
+import kr.xd.global.dto.ApiErrorResponse
+import kr.xd.global.entity.GlobalError
+import kr.xd.global.util.LoggerUtil
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
+import org.springframework.web.bind.MissingServletRequestParameterException
+import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
+
+@RestControllerAdvice
+class ValidationExceptionHandler(
+    private val loggerUtil: LoggerUtil
+) {
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleMethodArgumentNotValidException(
+        exception: MethodArgumentNotValidException
+    ): ResponseEntity<ApiErrorResponse> {
+        val errorEntity = GlobalError.INVALID_PARAMETER
+        val traceMessage = exception.message
+        return handleValidationException(exception, errorEntity, traceMessage)
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException::class)
+    fun handleMethodArgumentTypeMismatchException(
+        exception: MethodArgumentTypeMismatchException
+    ): ResponseEntity<ApiErrorResponse> {
+        val errorEntity = GlobalError.INVALID_PARAMETER
+        val traceMessage = exception.message
+        return handleValidationException(exception, errorEntity, traceMessage)
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException::class)
+    fun handleMethodArgumentTypeMismatchException(
+        exception: MissingServletRequestParameterException
+    ): ResponseEntity<ApiErrorResponse> {
+        val errorEntity = GlobalError.INVALID_PARAMETER
+        val traceMessage = exception.message
+        return handleValidationException(exception, errorEntity, traceMessage)
+    }
+
+    private fun handleValidationException(
+        exception: Exception,
+        errorEntity: GlobalError,
+        traceMessage: String?
+    ): ResponseEntity<ApiErrorResponse> {
+        loggerUtil.logErrorResponse(exception, errorEntity, traceMessage)
+
+        val errorResponse = ApiErrorResponse(errorEntity)
+        return ResponseEntity
+            .badRequest()
+            .body(errorResponse)
+    }
+}

@@ -1,9 +1,9 @@
-package kr.xd.common.dto
+package kr.xd.global.dto
 
-import kr.xd.common.entity.ErrorEntity
+import kr.xd.global.entity.ErrorEntity
 import java.time.LocalDateTime
 
-data class CommonErrorResponse(
+data class ApiErrorResponse(
     val timeStamp: String = LocalDateTime.now().toString(),
     val errorCode: String,
     val errorMessage: String?,

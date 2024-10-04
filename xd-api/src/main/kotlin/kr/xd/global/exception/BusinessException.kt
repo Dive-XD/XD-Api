@@ -1,6 +1,6 @@
-package kr.xd.common.exception
+package kr.xd.global.exception
 
-import kr.xd.common.entity.ErrorEntity
+import kr.xd.global.entity.ErrorEntity
 
 class BusinessException(
     val errorEntity: ErrorEntity

@@ -1,4 +1,4 @@
-package kr.xd.common.entity
+package kr.xd.global.entity
 
 interface ErrorEntity {
     val code: String
